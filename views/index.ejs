@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        <% newListItem.forEach(function(item) { %>
+            <form action="/delete" method="post">
+                <div class="item">
+                    <div class="round">
+                        <input type="checkbox"  name="checkbox" value="<%= item._id %>" onchange="this.form.submit()" id="checkbox">            
+                        <label for="checkbox"></label>
+                    </div>
+                    <p><%= item.text %></p>
+                    <br>
+                </div>
+                <input type="text" name="updatedText" value="<%= item.text %>">
+                <button type="submit"></button>         
+            </form> 
+        <% }) %>
+        
+        <form class='item' action="/" method="post">
+            <input type="text" placeholder="Add todo..." name="todoValue" id="">
+            <button id="b" type="submit"><span id="s2"></span>+</button>
+            </form>
+
+            <!-- Delete All Button -->
+    <form action="/deleteAll" method="post">
+        <button type="submit">Delete All</button>
+    </form>
+    
+    
+     <!-- Undo Button -->
+     <% if (lastDeletedTodo && lastDeletedTodo._id) { %>
+        <form action="/undoDelete" method="post">
+            <button type="submit">Undo Delete</button>
+        </form>
+    <% } %>
+
+    
+</div>
+        </body>
+</html>
